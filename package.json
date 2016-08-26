@@ -1,0 +1,40 @@
+{
+  "name": "no-git-unstaged",
+  "version": "1.0.0",
+  "description": "Check to ensure there are no unstaged changes in a git repo",
+  "main": "index.js",
+	"scripts": {
+		"no-unstaged-mods": "git-mods --no-unstaged",
+		"no-mods": "git-mods",
+    "test": "mocha",
+	},
+	"pre-commit": [
+		"test",
+		"no-unstaged"
+	],
+	"pre-push": [
+		"test",
+		"no-mods"
+	],
+  "keywords": [
+    "git",
+    "status",
+    "stage",
+    "unstage",
+    "unstaged"
+  ],
+  "author": "Shishir Ramam",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "parse-git-status": "^0.1.0",
+    "shelljs": "^0.7.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "pre-commit": "^1.1.3",
+    "pre-push": "^0.1.1",
+    "tmp": "0.0.28"
+  }
+}
