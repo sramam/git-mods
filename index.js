@@ -42,7 +42,7 @@ var main = function(staged_ok) {
 			case 'C':
 			case 'R':
 				return acc + '    ' + keys[is_changed] + ' ' + el.from + ' -> ' + el.to + '\n';
-			case ' ': 
+			case ' ':
 				// this is a staged change, no-op for our purposes
 				return acc;
 			default:
@@ -53,12 +53,12 @@ var main = function(staged_ok) {
 
 if (require.main === module) {
 	var response = main(program.staged_ok);
-	if (0 < unstaged.length) {
-		var msg = program.staged_ok ? 
-			"There are unstaged changes in the repo. Please stage/stash them before proceeding" : 
+	if (0 < response.length) {
+		var msg = program.staged_ok ?
+			"There are unstaged changes in the repo. Please stage/stash them before proceeding" :
 			"There are uncommitted changes in the repo. Please commit/stash them before proceeding";
 		console.error(msg);
-		console.error(chalk.red(unstaged));
+		console.error(chalk.red(response));
 		process.exit(1);
 	}
 } else {
