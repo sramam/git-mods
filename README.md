@@ -24,12 +24,12 @@ A development process side effect is that no process
 In package.json
 
     "scripts": {
-       "no-unstaged-mods": "git-mods --no-unstaged",
+       "staged-mods-ok": "git-mods --staged_ok",
        "no-mods": "git-mods"
     },
 		"pre-commit": [
       ...
-      "no-unstaged" // should be the last check
+      "staged-mods-ok" // should be the last check
 		],
 		"pre-push": [
       ...

@@ -3,19 +3,9 @@
   "version": "1.0.0",
   "description": "Check to ensure there are no unstaged changes in a git repo",
   "main": "index.js",
-	"scripts": {
-		"no-unstaged-mods": "git-mods --no-unstaged",
-		"no-mods": "git-mods",
-    "test": "mocha",
-	},
-	"pre-commit": [
-		"test",
-		"no-unstaged"
-	],
-	"pre-push": [
-		"test",
-		"no-mods"
-	],
+  "scripts": {
+    "test": "mocha"
+  },
   "keywords": [
     "git",
     "status",
@@ -32,9 +22,9 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "handlebars": "^4.0.5",
     "mocha": "^3.0.2",
-    "pre-commit": "^1.1.3",
-    "pre-push": "^0.1.1",
+    "rimraf": "^2.5.4",
     "tmp": "0.0.28"
   }
 }
