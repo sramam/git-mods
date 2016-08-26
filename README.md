@@ -11,9 +11,6 @@ With pre-commit and pre-push checks, the operation fails when some checks fail. 
 
 I have obviously done this one-too-many times. `git-mods` provides a simple script - meant to be invoked as a shell command to help automate the second-pass check.
 
-### Side effect
-A development process side effect is that no process 
-
 ## Installation
 
     npm install git-mods -D
