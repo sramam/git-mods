@@ -5,7 +5,7 @@ When these fail, it requires changes. On the second run, the checks pass, but th
 
 `git-mods` is an attempt to automate this check. It provides a wrapper around `git status` and parses the output to enable
 1. `git-mods`: Checks to ensure there are no modifications in the current repo.
-2. `git-mods --no-unstaged`: Checks to ensure no unstaged modifications exist. Staged modifications are acceptable.
+2. `git-mods --staged_ok`: Checks to ensure no unstaged modifications exist. Staged modifications are acceptable.
 
 With pre-commit and pre-push checks, the operation fails when some checks fail. Fixing this requires modifications and it's too easy to complete the operation without staging/commiting the changes on the second run. 
 
@@ -16,7 +16,7 @@ A development process side effect is that no process
 
 ## Installation
 
-    npm install no-git-unstaged -D
+    npm install git-mods -D
     # Since we are designed to work with pre-commit and pre-push, install 'em too.
     npm install pre-commit pre-push -D
 

@@ -1,5 +1,5 @@
 {
-  "name": "no-git-unstaged",
+  "name": "git-mods",
   "version": "1.0.0",
   "description": "Check to ensure there are no unstaged changes in a git repo",
   "main": "index.js",
