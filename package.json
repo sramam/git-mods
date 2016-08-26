@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
+	"bin": "./index.js",
   "keywords": [
     "git",
     "status",
