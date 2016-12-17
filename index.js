@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 var sh = require('shelljs');
 var chalk = require('chalk');
-var parse = require('parse-git-status');
 var program = require('commander');
 var pkg = require('./package.json');
 
@@ -17,19 +16,38 @@ var keys = {
     'D': 'deleted    ',
     'R': 'renamed    ',
     'C': 'copied     ',
-    '?': 'untracked '
+    '?': 'untracked  '
 };
+
+function git_status_parse(response) {
+	var lines = response.split('\n')
+	return lines.reduce((_, line) => {
+		if (line !== '') {
+			var parts = line.split(/ +/)
+			var xy = parts[0].split('')
+			var x = xy[0] || ' '
+			var y = xy[1] || ' '
+			_.push({
+				x: x,
+				y: y,
+				from: parts[1],
+				to: parts[3] || null
+			})
+		}
+		return _;
+	}, []);
+}
 
 var main = function(staged_ok) {
 	var response = sh.exec(
-		'git status --porcelain -z',
+		'git status --porcelain',
 		{ silent: true } // do not echo output to shell
 	);
 
 	if (response.code !== 0 || response.stderr) {
     throw new Error ('ERROR: ' + response.stderr);
 	}
-	return parse(response.stdout).reduce(function(acc, el) {
+	return git_status_parse(response.stdout).reduce(function(acc, el) {
 		// el.x = staged stage.
 		// el.y = unstaged state,
 		var is_changed = (!staged_ok && el.x !== ' ') ? el.x : el.y;
@@ -38,7 +56,7 @@ var main = function(staged_ok) {
 			case 'A':
 			case 'D':
 			case '?':
-				return acc + '    ' + keys[is_changed] + ' ' + el.to + '\n';
+				return acc + '    ' + keys[is_changed] + ' ' + el.from + '\n';
 			case 'C':
 			case 'R':
 				return acc + '    ' + keys[is_changed] + ' ' + el.from + ' -> ' + el.to + '\n';
