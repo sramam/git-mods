@@ -1,37 +1,38 @@
 # git-mods
-It's common to use (pre-commit)[https://github.com/observing/pre-commit] and (pre-push)[https://github.com/dflourusso/pre-push]hooks] hooks to validate that commits follows code quality guidelines - code-style, test-coverage etc. 
+<!-- badge -->
+[![npm license](https://img.shields.io/npm/l/git-mods.svg)](https://www.npmjs.com/package/git-mods)
+[![travis status](https://img.shields.io/travis/sramam/git-mods.svg)](https://travis-ci.org/sramam/git-mods)
+[![Build status](https://ci.appveyor.com/api/projects/status/l734j8mjdy9px31q?svg=true)](https://ci.appveyor.com/project/sramam/git-mods)
+<!-- endbadge -->
 
-When these fail, it requires changes. On the second run, the checks pass, but the changes are unstaged and do not get committed. I've made this mistake once too many times.
+A common pattern is to find errors during the commit/push process due to tests,
+git-hooks etc. Once changes are made, it's all too common to finish the original
+commit that leaves these changes behind.
 
-`git-mods` is an attempt to automate this check. It provides a wrapper around `git status` and parses the output to enable
+`git-mods` automates this check. It provides a wrapper around `git status` and parses the output to enable
 1. `git-mods`: Checks to ensure there are no modifications in the current repo.
 2. `git-mods --staged_ok`: Checks to ensure no unstaged modifications exist. Staged modifications are acceptable.
 
-With pre-commit and pre-push checks, the operation fails when some checks fail. Fixing this requires modifications and it's too easy to complete the operation without staging/commiting the changes on the second run. 
-
-I have obviously done this one-too-many times. `git-mods` provides a simple script - meant to be invoked as a shell command to help automate the second-pass check.
+Typically, `git-mods --staged_ok` is a good option to include in a `precommit`-hook  and `git-mods` to include in the `prepush`-hook.
 
 ## Installation
 
-    npm install git-mods -D
-    # Since we are designed to work with pre-commit and pre-push, install 'em too.
-    npm install pre-commit pre-push -D
-
+1. Add precommit/prepush hooks to the scripts section of `package.json`
 ## Usage
-In package.json
+In `package.json:scripts`:
 
-    "scripts": {
-       "staged-mods-ok": "git-mods --staged_ok",
-       "no-mods": "git-mods"
-    },
-		"pre-commit": [
-      ...
-      "staged-mods-ok" // should be the last check
-		],
-		"pre-push": [
-      ...
-      "no-mods" // should be the last check
-		]
+```json
+...
+"scripts": {
+  "precommit": "git-mods --staged_ok",
+  "prepush": "git-mods"
+}
+...
+```
 
-All `git commit` & `git push` operations should be safe at this point.
+2. Install
+```
+npm install git-mods husky --save-dev
+```
 
+*NOTE*: We have inverted the normal flow of making modifications post doing the `npm install`, since `husky` invokes a postinstall script that sets up any hooks specified in the scripts section.

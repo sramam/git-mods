@@ -1,6 +1,6 @@
 {
   "name": "git-mods",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Check to ensure there are no unstaged changes in a git repo",
   "main": "index.js",
   "scripts": {
