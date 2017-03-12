@@ -4,9 +4,11 @@
   "description": "Check to ensure there are no unstaged changes in a git repo",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "precommit": "npm test",
+    "prepush": "npm test"
   },
-	"bin": "./index.js",
+  "bin": "./index.js",
   "keywords": [
     "git",
     "status",
@@ -23,6 +25,7 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "handlebars": "^4.0.5",
+    "husky": "^0.13.2",
     "mocha": "^3.0.2",
     "rimraf": "^2.5.4",
     "tmp": "0.0.28"
