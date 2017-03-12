@@ -86,6 +86,8 @@ describe('git-mods', function () {
     fs.writeFileSync(files.modified, 'initial add', 'utf8');
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8');
     sh.exec('git add . --all');
+    sh.exec('git config --global user.email "travis-ci@example.com"');
+    sh.exec('git config --global user.name "Travis Check"');
     sh.exec('git commit -m "initial add"');
     fs.writeFileSync(files.modified, 'modified', 'utf8');
     sh.exec('git status');
