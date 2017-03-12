@@ -23,8 +23,8 @@ function git_status_parse(response) {
 	var lines = response.split('\n')
 	return lines.reduce((_, line) => {
 		if (line !== '') {
-			var parts = line.split(/ +/)
-			var xy = parts[0].split('')
+      var parts = line.trim().split(/ +/)
+      var xy = parts[0].split('')
 			var x = xy[0] || ' '
 			var y = xy[1] || ' '
 			_.push({
@@ -48,10 +48,8 @@ var main = function(staged_ok) {
     throw new Error ('ERROR: ' + response.stderr);
 	}
 	return git_status_parse(response.stdout).reduce(function(acc, el) {
-		// el.x = staged stage.
-		// el.y = unstaged state,
-		var is_changed = (!staged_ok && el.x !== ' ') ? el.x : el.y;
-		switch (is_changed) {
+		var is_changed = el.x;
+    switch (is_changed) {
 			case 'M':
 			case 'A':
 			case 'D':
@@ -71,7 +69,7 @@ var main = function(staged_ok) {
 
 if (require.main === module) {
 	var response = main(program.staged_ok);
-	if (0 < response.length) {
+  if (0 < response.length) {
 		var msg = program.staged_ok ?
 			"There are unstaged changes in the repo. Please stage/stash them before proceeding" :
 			"There are uncommitted changes in the repo. Please commit/stash them before proceeding";
