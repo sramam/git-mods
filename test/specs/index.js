@@ -7,7 +7,6 @@ var check = require('../../index');
 var rimraf = require('rimraf');
 
 var staged_ok = true;
-var no_staged = false;
 var git_mods = path.resolve(path.join(__dirname, '..', '..'));
 
 var dir;
@@ -33,65 +32,165 @@ var pkgGen = function (dir) {
   }
 }
 
+const exists = function (arr, re) {
+  // console.log(arr)
+  return arr.reduce(function (_, el) {
+    // console.log('--')
+    // console.log(el);
+    // console.log(re)
+    // console.log(el.match(re));
+    // console.log(_ || (null !== el.match(re)))
+    return _ || (null !== el.match(re))
+  }, false)
+}
+
 describe('git-mods', function () {
+  var filename = 'file.txt'
+  var re = {
+    untracked: (new RegExp('^untracked ' + filename)),
+    staged: (new RegExp('^staged .* ' + filename)),
+    unstaged: (new RegExp('^unstaged .* ' + filename))
+  }
+  var repodir;
+
   before(function () {
-    this.timeout(10000);
-    var pkg = pkgGen(git_mods);
-    dir = tmp.dirSync();
-    files = {
-      staged: path.join(dir.name, 'staged.txt'),
-      unstaged: path.join(dir.name, 'unstaged.txt'),
-      modified: path.join(dir.name, 'modified.txt')
-    };
-    fs.writeFileSync(path.join(dir.name, 'package.json'), JSON.stringify(pkg, null, 2));
-    sh.cd(dir.name);
-    sh.exec('git init');
-    sh.exec('npm install');
-  });
+    this.timeout(10000)
+    var pkg = pkgGen(git_mods)
+    repodir = tmp.dirSync().name;
+    fs.writeFileSync(path.join(repodir, 'package.json'), JSON.stringify(pkg, null, 2))
+    sh.cd(repodir)
+    sh.exec('npm install')
+  })
+
+  it('untracked file, tagged when  staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    // sh.exec('git status --porcelain')
+    expect(
+      exists(check(staged_ok), re.untracked)
+    ).to.be.true
+  })
+
+  it('untracked file, tagged when !staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    // sh.exec('git status --porcelain')
+    expect(
+      exists(check(!staged_ok), re.untracked)
+    ).to.be.true
+  })
+
+  it('staged addition, not tagged when staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    // sh.exec('git status --porcelain')
+    expect(
+      exists(check(staged_ok), re.staged)
+    ).to.be.false
+  })
+
+  it('staged addition, tagged when !staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    // sh.exec('git status --porcelain')
+    expect(
+      exists(check(!staged_ok), re.staged)
+    ).to.be.true
+  })
+
+  it('unstaged modification, tagged when staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    sh.exec('git commit -m "initial commit"')
+    fs.writeFileSync(filename, 'content-modified', 'utf8')
+    // sh.exec('git status --porcelain')
+    expect(
+      exists(check(staged_ok), re.unstaged)
+    ).to.be.true
+  })
+
+  it('unstaged modification, tagged when !staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    sh.exec('git commit -m "initial commit"')
+    fs.writeFileSync(filename, 'content-modified', 'utf8')
+    // sh.exec('git status --porcelain')
+    expect(
+      exists(check(!staged_ok), re.unstaged)
+    ).to.be.true
+  })
 
 
-  it('should return no errors with a clean slate', function () {
-    fs.writeFileSync(files.staged, 'staged');
-    sh.exec('git add ' + files.staged);
-    expect(function () {
-      check(staged_ok);
-    }).to.not.throw();
-    sh.exec('git reset ' + files.staged);
-    fs.unlink(files.staged);
-  });
+  it('unstaged delete, tagged when staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    sh.exec('git commit -m "initial commit"')
+    sh.exec('rm ' + filename);
+    sh.exec('git status --porcelain')
+    expect(
+      exists(check(staged_ok), re.unstaged)
+    ).to.be.true
+  })
 
-  it('should throw when there are unstaged files', function () {
-    var basename = path.basename(files.unstaged);
-    fs.writeFileSync(files.unstaged, 'unstaged');
-    sh.exec('git status');
-    expect(check(staged_ok)).to.match(new RegExp('.*untracked.*' + basename));
-    fs.unlink(files.unstaged);
-  });
+  it('unstaged delete, tagged when !staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    sh.exec('git commit -m "initial commit"')
+    sh.exec('rm ' + filename);
+    sh.exec('git status --porcelain')
+    expect(
+      exists(check(!staged_ok), re.unstaged)
+    ).to.be.true
+  })
 
-  // this test interferes with commits. Unskip to test locally and move on.
-  it('should throw when there are staged files', function () {
-    var basename = path.basename(files.unstaged);
-    fs.writeFileSync(files.staged, 'staged');
-    fs.writeFileSync(files.unstaged, 'unstaged');
-    sh.exec('git add ' + files.staged);
-    sh.exec('git status');
-    expect(check(no_staged)).to.match(new RegExp('.*untracked.*' + basename));
-    sh.exec('git reset ' + files.staged);
-    fs.unlink(files.staged);
-    fs.unlinkSync(files.unstaged);
-  });
 
-  it('should throw when there are modifications', function () {
-    var basename = path.basename(files.modified);
-    fs.writeFileSync(files.modified, 'initial add', 'utf8');
-    fs.writeFileSync('.gitignore', 'node_modules', 'utf8');
-    sh.exec('git add . --all');
-    sh.exec('git config --global user.email "travis-ci@example.com"');
-    sh.exec('git config --global user.name "Travis Check"');
-    sh.exec('git commit -m "initial add"');
-    fs.writeFileSync(files.modified, 'modified', 'utf8');
-    sh.exec('git status');
-    expect(check(staged_ok)).to.match(new RegExp('.*modified.*' + basename));
-    fs.unlink(files.modified);
-  });
+  it('staged delete, tagged when staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    sh.exec('git commit -m "initial commit"')
+    sh.exec('git rm ' + filename);
+    sh.exec('git status --porcelain')
+    expect(
+      exists(check(staged_ok), re.staged)
+    ).to.be.false
+  })
+
+  it('staged delete, tagged when !staged_ok', function () {
+    rimraf.sync(path.join(repodir, '.git'))
+    sh.exec('git init')
+    fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
+    fs.writeFileSync(filename, 'content', 'utf8')
+    sh.exec('git add ' + filename)
+    sh.exec('git commit -m "initial commit"')
+    sh.exec('git rm ' + filename);
+    sh.exec('git status --porcelain')
+    expect(
+      exists(check(!staged_ok), re.staged)
+    ).to.be.true
+  })
 });
