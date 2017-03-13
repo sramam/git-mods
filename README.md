@@ -3,6 +3,8 @@
 [![npm license](https://img.shields.io/npm/l/git-mods.svg)](https://www.npmjs.com/package/git-mods)
 [![travis status](https://img.shields.io/travis/sramam/git-mods.svg)](https://travis-ci.org/sramam/git-mods)
 [![Build status](https://ci.appveyor.com/api/projects/status/l734j8mjdy9px31q?svg=true)](https://ci.appveyor.com/project/sramam/git-mods)
+[![David](https://img.shields.io/david/sramam/git-mods)]()
+[![David](https://img.shields.io/david/dev/sramam/git-mods)]()
 <!-- endbadge -->
 
 A common pattern is to find errors during the commit/push process due to tests,
