@@ -10,6 +10,7 @@
 A common pattern is to find errors during the commit/push process due to tests,git-hooks etc. Once changes are made, it's all too common to finish the original commit that leaves these changes behind.
 
 `git-mods` automates this check. It provides a wrapper around `git status` and parses the output to enable
+
 1. `git-mods`: Checks to ensure there are no modifications in the current repo.
 2. `git-mods --staged_ok`: Checks to ensure no unstaged modifications exist. Staged modifications are acceptable.
 
@@ -28,7 +29,8 @@ In `package.json:scripts`:
 ...
 ```
 - THEN, install the dependencies.
-*NOTE*: This inversion actually makes the flow easier, since `husky` uses a postinstall script to setup any hooks specified from the scripts section. This was we don't have to run the post-install script manually.
+
+*NOTE*: This inversion actually makes the flow easier, since `husky` uses a postinstall script to setup any hooks specified from the scripts section. This way we don't have to run the post-install script manually.
 
 ```
 npm install git-mods husky --save-dev
