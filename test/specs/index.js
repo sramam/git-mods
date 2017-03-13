@@ -62,6 +62,7 @@ describe('git-mods', function () {
     sh.exec('npm install')
   })
 
+  // --
   it('untracked file, tagged when  staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
@@ -84,12 +85,13 @@ describe('git-mods', function () {
     ).to.be.true
   })
 
+  // --
   it('staged addition, not tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     // sh.exec('git status --porcelain')
     expect(
       exists(check(staged_ok), re.staged)
@@ -101,19 +103,20 @@ describe('git-mods', function () {
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     // sh.exec('git status --porcelain')
     expect(
       exists(check(!staged_ok), re.staged)
     ).to.be.true
   })
 
+  // --
   it('unstaged modification, tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     sh.exec('git commit -m "initial commit"')
     fs.writeFileSync(filename, 'content-modified', 'utf8')
     // sh.exec('git status --porcelain')
@@ -136,13 +139,13 @@ describe('git-mods', function () {
     ).to.be.true
   })
 
-
+  // --
   it('unstaged delete, tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     sh.exec('git commit -m "initial commit"')
     sh.exec('rm ' + filename);
     sh.exec('git status --porcelain')
@@ -156,7 +159,7 @@ describe('git-mods', function () {
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     sh.exec('git commit -m "initial commit"')
     sh.exec('rm ' + filename);
     sh.exec('git status --porcelain')
@@ -165,13 +168,13 @@ describe('git-mods', function () {
     ).to.be.true
   })
 
-
+  // --
   it('staged delete, tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     sh.exec('git commit -m "initial commit"')
     sh.exec('git rm ' + filename);
     sh.exec('git status --porcelain')
@@ -185,7 +188,7 @@ describe('git-mods', function () {
     sh.exec('git init')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
-    sh.exec('git add ' + filename)
+    sh.exec('git add . --all')
     sh.exec('git commit -m "initial commit"')
     sh.exec('git rm ' + filename);
     sh.exec('git status --porcelain')

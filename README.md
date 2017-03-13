@@ -7,9 +7,7 @@
 [![David](https://david-dm.org/sramam/git-mods/dev-status.svg)](https://david-dm.org/sramam/git-mods?type=dev)
 <!-- endbadge -->
 
-A common pattern is to find errors during the commit/push process due to tests,
-git-hooks etc. Once changes are made, it's all too common to finish the original
-commit that leaves these changes behind.
+A common pattern is to find errors during the commit/push process due to tests,git-hooks etc. Once changes are made, it's all too common to finish the original commit that leaves these changes behind.
 
 `git-mods` automates this check. It provides a wrapper around `git status` and parses the output to enable
 1. `git-mods`: Checks to ensure there are no modifications in the current repo.
@@ -18,11 +16,9 @@ commit that leaves these changes behind.
 Typically, `git-mods --staged_ok` is a good option to include in a `precommit`-hook  and `git-mods` to include in the `prepush`-hook.
 
 ## Installation
-
-1. Add precommit/prepush hooks to the scripts section of `package.json`
+- First, add precommit/prepush hooks to the scripts section of `package.json`
 ## Usage
 In `package.json:scripts`:
-
 ```json
 ...
 "scripts": {
@@ -31,10 +27,9 @@ In `package.json:scripts`:
 }
 ...
 ```
+- THEN, install the dependencies.
+*NOTE*: This inversion actually makes the flow easier, since `husky` uses a postinstall script to setup any hooks specified from the scripts section. This was we don't have to run the post-install script manually.
 
-2. Install
 ```
 npm install git-mods husky --save-dev
 ```
-
-*NOTE*: We have inverted the normal flow of making modifications post doing the `npm install`, since `husky` invokes a postinstall script that sets up any hooks specified in the scripts section.

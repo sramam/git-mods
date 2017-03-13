@@ -1,14 +1,10 @@
 {
   "name": "git-mods",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Check to ensure there are no unstaged changes in a git repo",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha",
-    "precommit": "npm test",
-    "prepush": "npm test"
-  },
-  "bin": "./index.js",
+  "author": "Shishir Ramam",
+  "license": "Apache-2.0",
+  "repository": "sramam/git-mods",
   "keywords": [
     "git",
     "status",
@@ -16,8 +12,13 @@
     "unstage",
     "unstaged"
   ],
-  "author": "Shishir Ramam",
-  "license": "Apache-2.0",
+  "main": "index.js",
+  "bin": "./index.js",
+  "scripts": {
+    "test": "mocha",
+    "precommit": "npm test",
+    "prepush": "npm test"
+  },
   "dependencies": {
     "chalk": "^1.1.3",
     "shelljs": "^0.7.4"
