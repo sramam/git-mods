@@ -5,6 +5,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/l734j8mjdy9px31q?svg=true)](https://ci.appveyor.com/project/sramam/git-mods)
 [![David](https://david-dm.org/sramam/git-mods/status.svg)](https://david-dm.org/sramam/git-mods)
 [![David](https://david-dm.org/sramam/git-mods/dev-status.svg)](https://david-dm.org/sramam/git-mods?type=dev)
+<br/>
+[![NPM](https://nodei.co/npm/git-mods.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-mods/)
 <!-- endbadge -->
 
 A common pattern is to find errors during the commit/push process due to tests,git-hooks etc. Once changes are made, it's all too common to finish the original commit that leaves these changes behind.
