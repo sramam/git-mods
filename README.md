@@ -19,6 +19,11 @@ A common pattern is to find errors during the commit/push process due to tests,g
 Typically, `git-mods --staged_ok` is a good option to include in a `precommit`-hook  and `git-mods` to include in the `prepush`-hook.
 
 ## Installation
+
+`git-mods` is best used along with [`husky`](https://www.npmjs.com/package/husky), to easily add git-hooks to your repo.
+To make it's installation easier, `husky` uses a post install script to confgure any hooks specified. This results in a
+slightly convoluted installation sequence. If you didn't read-the-manual the first time, just `npm install husky` a second time
+
 - First, add precommit/prepush hooks to the scripts section of `package.json`
 ## Usage
 In `package.json:scripts`:
@@ -32,8 +37,7 @@ In `package.json:scripts`:
 ```
 - THEN, install the dependencies.
 
-*NOTE*: This inversion actually makes the flow easier, since `husky` uses a postinstall script to setup any hooks specified from the scripts section. This way we don't have to run the post-install script manually.
-
 ```
 npm install git-mods husky --save-dev
 ```
+
