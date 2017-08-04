@@ -54,7 +54,7 @@ describe('git-mods', function () {
   var repodir;
 
   before(function () {
-    this.timeout(10000)
+    this.timeout(20000)
     var pkg = pkgGen(git_mods)
     repodir = tmp.dirSync().name;
     fs.writeFileSync(path.join(repodir, 'package.json'), JSON.stringify(pkg, null, 2))
