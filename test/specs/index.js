@@ -52,9 +52,9 @@ describe('git-mods', function () {
     unstaged: (new RegExp('^unstaged .* ' + filename))
   }
   var repodir;
+  this.timeout(20000)
 
   before(function () {
-    this.timeout(20000)
     var pkg = pkgGen(git_mods)
     repodir = tmp.dirSync().name;
     fs.writeFileSync(path.join(repodir, 'package.json'), JSON.stringify(pkg, null, 2))
