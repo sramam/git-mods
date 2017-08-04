@@ -66,6 +66,8 @@ describe('git-mods', function () {
   it('untracked file, tagged when  staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     // sh.exec('git status --porcelain')
@@ -77,6 +79,8 @@ describe('git-mods', function () {
   it('untracked file, tagged when !staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     // sh.exec('git status --porcelain')
@@ -89,6 +93,8 @@ describe('git-mods', function () {
   it('staged addition, not tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
@@ -101,6 +107,8 @@ describe('git-mods', function () {
   it('staged addition, tagged when !staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
@@ -114,6 +122,8 @@ describe('git-mods', function () {
   it('unstaged modification, tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
@@ -128,6 +138,8 @@ describe('git-mods', function () {
   it('unstaged modification, tagged when !staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add ' + filename)
@@ -143,6 +155,8 @@ describe('git-mods', function () {
   it('unstaged delete, tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
@@ -157,6 +171,8 @@ describe('git-mods', function () {
   it('unstaged delete, tagged when !staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
@@ -172,6 +188,8 @@ describe('git-mods', function () {
   it('staged delete, tagged when staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
@@ -186,6 +204,8 @@ describe('git-mods', function () {
   it('staged delete, tagged when !staged_ok', function () {
     rimraf.sync(path.join(repodir, '.git'))
     sh.exec('git init')
+    sh.exec('git config --global user.email "you@example.com"')
+    sh.exec('git config --global user.name "Your Name"')
     fs.writeFileSync('.gitignore', 'node_modules', 'utf8')
     fs.writeFileSync(filename, 'content', 'utf8')
     sh.exec('git add . --all')
