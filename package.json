@@ -21,16 +21,16 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "commander": "^2.20.3",
-    "debug": "^3.2.6",
+    "commander": "^3.0.2",
+    "debug": "^4.1.1",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "handlebars": "^4.5.1",
-    "husky": "^0.14.3",
-    "mocha": "^5.2.0",
-    "rimraf": "^2.7.1",
-    "tmp": "0.0.33"
+    "husky": "^3.0.9",
+    "mocha": "^6.2.2",
+    "rimraf": "^3.0.0",
+    "tmp": "^0.1.0"
   }
 }
