@@ -7,4 +7,5 @@ os:
   - osx
   - windows
 script:
+  - git config --local core.autocrlf input
   - npm test
