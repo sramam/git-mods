@@ -4,8 +4,9 @@ node_js:
   - '12'
 os:
   - linux
-  - osx
-  - windows
+  # these builds take way too long and error prone
+  # - osx
+  # - windows
 script:
   - git config --local core.autocrlf input
   - npm test
