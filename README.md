@@ -2,8 +2,6 @@
 <!-- badge -->
 [![npm license](https://img.shields.io/npm/l/git-mods.svg)](https://www.npmjs.com/package/git-mods)
 [![build](https://github.com/sramam/git-mods/actions/workflows/.action_ci.yml/badge.svg)](https://github.com/sramam/git-mods/actions/workflows/.action_ci.yml)
-[![David](https://david-dm.org/sramam/git-mods/status.svg)](https://david-dm.org/sramam/git-mods)
-[![David](https://david-dm.org/sramam/git-mods/dev-status.svg)](https://david-dm.org/sramam/git-mods?type=dev)
 <br/>
 [![NPM](https://nodei.co/npm/git-mods.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/git-mods/)
 <!-- endbadge -->
