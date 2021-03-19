@@ -1,6 +1,6 @@
 {
   "name": "git-mods",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Check to ensure there are no unstaged changes in a git repo",
   "author": "Shishir Ramam",
   "license": "Apache-2.0",
