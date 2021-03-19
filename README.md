@@ -1,8 +1,6 @@
 # git-mods
 <!-- badge -->
 [![npm license](https://img.shields.io/npm/l/git-mods.svg)](https://www.npmjs.com/package/git-mods)
-[![travis status](https://img.shields.io/travis/sramam/git-mods.svg)](https://travis-ci.org/sramam/git-mods)
-[![Build status](https://ci.appveyor.com/api/projects/status/l734j8mjdy9px31q?svg=true)](https://ci.appveyor.com/project/sramam/git-mods)
 [![David](https://david-dm.org/sramam/git-mods/status.svg)](https://david-dm.org/sramam/git-mods)
 [![David](https://david-dm.org/sramam/git-mods/dev-status.svg)](https://david-dm.org/sramam/git-mods?type=dev)
 <br/>
