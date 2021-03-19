@@ -3,11 +3,11 @@ var tmp = require('tmp');
 var fs = require('fs');
 var path = require('path');
 var sh = require('shelljs');
-var check = require('../../index');
+var check = require('../index');
 var rimraf = require('rimraf');
 
 var staged_ok = true;
-var git_mods = path.resolve(path.join(__dirname, '..', '..'));
+var git_mods = path.resolve(path.join(__dirname, '..'));
 
 var dir;
 var files;
